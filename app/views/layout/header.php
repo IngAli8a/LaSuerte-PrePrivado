@@ -1,3 +1,4 @@
+<?php
 $vendedor = null;
 if (isset($_SESSION['id_usuario'])) {
     $vendedor = [
