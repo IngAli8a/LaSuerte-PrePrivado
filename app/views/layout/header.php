@@ -1,3 +1,12 @@
+$vendedor = null;
+if (isset($_SESSION['id_usuario'])) {
+    $vendedor = [
+        'id_usuario' => $_SESSION['id_usuario'],
+        'nombre' => $_SESSION['nombre_completo'],
+        'usuario' => $_SESSION['nombre_usuario']
+    ];
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -13,4 +13,6 @@ require_once APP_PATH . 'models/Usuario.php';
 // Cargar controllers
 require_once APP_PATH . 'controllers/AuthController.php';
 require_once APP_PATH . 'controllers/DashboardController.php';
+
+Route::iniciar();
 ?>
