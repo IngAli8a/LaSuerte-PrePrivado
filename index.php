@@ -10,10 +10,15 @@ require_once CORE_PATH . 'Route.php';
 // Cargar models
 require_once APP_PATH . 'models/Usuario.php';
 require_once APP_PATH . 'models/Cliente.php';
+require_once APP_PATH . 'models/TipoSorteo.php';
+require_once APP_PATH . 'models/Sorteo.php';
+require_once APP_PATH . 'models/Apuesta.php';
 
 // Cargar controllers
 require_once APP_PATH . 'controllers/AuthController.php';
 require_once APP_PATH . 'controllers/ClienteController.php';
+require_once APP_PATH . 'controllers/ApuestaController.php';
+require_once APP_PATH . 'controllers/SorteoController.php';
 require_once APP_PATH . 'controllers/DashboardController.php';
 
 Route::iniciar();
