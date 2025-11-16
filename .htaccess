@@ -1,0 +1,123 @@
+
+<IfModule mod_rewrite.c>
+    # Activar el motor de reescritura
+    RewriteEngine On
+    
+   
+    RewriteBase /Sistema-PrePrivado/
+    
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    
+
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+
+
+
+# Bloquear acceso a archivos SQL
+<FilesMatch "\.sql$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso a archivos JSON
+<FilesMatch "\.json$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# Bloquear acceso a archivos de configuración
+<FilesMatch "\.env$">
+    Order Deny,Allow
+    Deny from all
+</FilesMatch>
+
+# ============================================================================
+# PERMISOS - Permitir acceso a archivos públicos
+# ============================================================================
+<FilesMatch "\.(jpg|jpeg|png|gif|svg|ico|css|js|woff|woff2|ttf|eot)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
+
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    
+    # Imágenes - 1 año
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    
+    # CSS - 1 mes
+    ExpiresByType text/css "access plus 1 month"
+    
+    # JavaScript - 1 mes
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    
+    # Fuentes - 1 año
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/eot "access plus 1 year"
+    
+    # HTML - No cachear
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>
+
+
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/json
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/x-font
+    AddOutputFilterByType DEFLATE application/x-font-truetype
+    AddOutputFilterByType DEFLATE application/x-font-opentype
+    AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
+    AddOutputFilterByType DEFLATE font/ttf
+    AddOutputFilterByType DEFLATE font/otf
+</IfModule>
+
+# ============================================================================
+# HEADERS - Seguridad y rendimiento
+# ============================================================================
+<IfModule mod_headers.c>
+    # Prevenir ataques de contenido
+    Header set X-Content-Type-Options "nosniff"
+    
+    # Prevenir clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Habilitar protección XSS en navegadores antiguos
+    Header set X-XSS-Protection "1; mode=block"
+    
+    # Permitir CORS (si es necesario)
+    # Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+# ============================================================================
+# CHARACTER SET - Codificación UTF-8
+# ============================================================================
+AddDefaultCharset UTF-8
+
+# ============================================================================
+# TIPOS MIME - Asignar tipos de archivo
+# ============================================================================
+AddType application/json .json
+AddType application/xml .xml
+AddType text/plain .txt
+AddType text/html .html
+AddType text/css .css
+AddType application/javascript .js
